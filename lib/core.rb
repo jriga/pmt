@@ -3,6 +3,7 @@ require 'optparse'
 require 'prime'
 require 'table'
 require 'render/cli'
+require 'render/json'
 
 options = {}
 Fixnum.include(Prime)
@@ -20,6 +21,10 @@ OptionParser.new do |opts|
     warn opts
     exit
   end
+
+  opts.on "-f", "--format FORMAT", "choose output format" do |s|
+    options[:format] = s
+  end
 end.parse!
 
 options[:rows] = 10 if options[:rows].nil?
@@ -29,4 +34,8 @@ h = { rows: Prime.generate.first(options[:rows]),  cols: Prime.generate.first(op
 
 table = Table.build(h[:rows], h[:cols]) {|r,c| r*c }
 
-Render::Cli.draw(table)
+if options[:format] == 'json'
+ Render::Json.draw(table)
+else
+  Render::Cli.draw(table, " | ")
+end

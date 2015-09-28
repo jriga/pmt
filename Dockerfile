@@ -9,7 +9,8 @@ RUN apt-add-repository ppa:brightbox/ruby-ng
 RUN apt-get update && apt-get install -y \
     ruby2.2-dev ruby2.2 git build-essential
 
-RUN git clone https://jriga@bitbucket.org/jriga/prime-multiplication-table.git
+RUN git clone https://github.com/jriga/pmt.git
+
 RUN gem install bundler --no-rdoc --no-ri 
 
 WORKDIR prime-multiplication-table

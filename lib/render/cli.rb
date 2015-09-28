@@ -24,9 +24,7 @@ module Render
       
       private
       def add_column_header(table, s, l, cs)
-        temp = table.cols.dup.unshift(s * cs)
-        
-        temp.map {|cell| cell.to_s.rjust(cs) }.join(s) + l
+        ["",table.cols].flatten.map {|cell| cell.to_s.rjust(cs) }.join(s) + l
       end
       
     end
